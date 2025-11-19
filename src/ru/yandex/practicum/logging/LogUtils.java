@@ -8,7 +8,6 @@ public class LogUtils {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    // Запретим создание экземпляров
     private LogUtils() {}
 
     public static void logInfrastructureError(PrintWriter logWriter, String message) {
