@@ -8,7 +8,8 @@ public class LogUtils {
 
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    private LogUtils() {}
+    private LogUtils() {
+    }
 
     public static void logInfrastructureError(PrintWriter logWriter, String message) {
         log(logWriter, "[INFRA ERROR]", message);
