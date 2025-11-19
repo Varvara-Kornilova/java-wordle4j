@@ -5,7 +5,6 @@ import ru.yandex.practicum.exceptions.infrastructureExceptions.InfrastructureExc
 import ru.yandex.practicum.logging.LogUtils;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
