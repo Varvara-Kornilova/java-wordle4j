@@ -28,20 +28,16 @@ class WordleGameTest {
 
     @Test
     void compareWords_shouldReturnCorrectResult() {
-
-        game = new WordleGame(dictionary, logWriter);
-
-        WordleGame testGame = new WordleGameStub(dictionary, logWriter, "СЛОВО");
-        assertEquals("+++++", testGame.compareWords("СЛОВО", "СЛОВО"));
-        assertEquals("^^+++", testGame.compareWords("ЛСОВО", "СЛОВО"));
+        assertEquals("+++++", game.compareWords("СЛОВО", "СЛОВО"));
+        assertEquals("^^+++", game.compareWords("ЛСОВО", "СЛОВО"));
     }
 
     @Test
     void makeGuess_shouldThrowAfterMaxAttempts() throws GameException {
-
         for (int i = 0; i < 6; i++) {
             game.makeGuess("СЛОВО");
         }
+
         assertThrows(IllegalStateException.class, () -> game.makeGuess("СТАРТ"));
     }
 
@@ -54,30 +50,13 @@ class WordleGameTest {
         assertTrue(result.chars().allMatch(c -> c == '+' || c == '^' || c == '-'));
 
         assertTrue(dictionary.getWords().contains(suggestion));
-
         assertEquals(result, game.compareWords(suggestion, game.getAnswer()));
     }
 
     @Test
     void isCorrect_shouldReturnTrueForCorrectGuess() {
-        WordleGame game = new WordleGame(dictionary, logWriter);
         String answer = game.getAnswer();
-
-        assertTrue(game.isCorrect(answer.toLowerCase()));
         assertTrue(game.isCorrect(answer));
-    }
-
-    static class WordleGameStub extends WordleGame {
-        private final String fixedAnswer;
-
-        public WordleGameStub(WordleDictionary dictionary, PrintWriter logWriter, String answer) {
-            super(dictionary, logWriter);
-            this.fixedAnswer = answer;
-        }
-
-        @Override
-        public String getAnswer() {
-            return fixedAnswer;
-        }
+        assertTrue(game.isCorrect(answer.toLowerCase()));
     }
 }
