@@ -34,7 +34,7 @@ public class WordleDictionaryLoader {
             }
         } catch (Exception e) {
             LogUtils.logInfrastructureError(logWriter, "Файл не найден или недоступен: " + fileName);
-            e.printStackTrace(logWriter); // PrintWriter поддерживает printStackTrace!
+            e.printStackTrace(logWriter);
             logWriter.flush();
             throw new DictionaryFileNotFoundException(fileName);
         }
