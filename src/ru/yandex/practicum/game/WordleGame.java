@@ -195,5 +195,7 @@ public class WordleGame {
         return lastSuggestion;
     }
 
-    public String getAnswer() { return answer; }
+    public String getAnswer() {
+        return answer;
+    }
 }
