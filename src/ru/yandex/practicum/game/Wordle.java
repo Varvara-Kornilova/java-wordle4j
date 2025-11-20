@@ -24,13 +24,15 @@ public class Wordle {
 
             System.out.println("Добро пожаловать в игру «5 букв»!");
             LogUtils.logInfo(logWriter, "=== ЗАПУСК ИГРЫ ===");
-            System.out.println("Правила:");
-            System.out.println("  - Угадайте слово из 5 букв за 6 попыток.");
-            System.out.println("  - '+' — буква на своём месте,");
-            System.out.println("  - '^' — буква есть, но не на своём месте,");
-            System.out.println("  - '-' — буквы нет в слове.");
-            System.out.println("  - Нажмите Enter в любой момент, чтобы получить подсказку (будет засчитано как попытка!).");
-            System.out.println("Удачи!\n");
+            System.out.println("""
+              Правила:
+              - Угадайте слово из 5 букв за 6 попыток.
+              - '+' — буква на своём месте,
+              - '^' — буква есть, но не на своём месте,
+              - '-' — буквы нет в слове.
+              - Нажмите Enter в любой момент, чтобы получить подсказку (будет засчитано как попытка!).
+              Удачи!
+            """);
 
             WordleDictionary dictionary;
             try {
@@ -91,12 +93,6 @@ public class Wordle {
                         System.out.println("❌ " + e.getMessage());
                         System.out.println("Попробуйте снова.");
                     }
-                }
-
-                if (attemptsUsed > MAX_ATTEMPTS) {
-                    String msg = "КРИТИЧЕСКАЯ ОШИБКА: attemptsUsed (" + attemptsUsed + ") > MAX_ATTEMPTS";
-                    LogUtils.logInfrastructureError(logWriter, msg);
-                    throw new IllegalStateException(msg);
                 }
             }
 
