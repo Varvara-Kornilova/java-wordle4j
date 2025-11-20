@@ -40,43 +40,36 @@ public class WordleDictionary {
         this.words = new ArrayList<>(uniqueWords);
     }
 
-    public void validatePlayerWord(String input) {
-        if (input == null || input.length() != 5) {
-            InvalidWordLengthException e = new InvalidWordLengthException(input);
-            LogUtils.logGameError(logWriter, e.getMessage());
-            throw e;
+    public void validatePlayerWord(String input) throws GameException {
+        if (input == null || input.length() != WORD_LENGTH) {
+            throwAndLogGameError(new InvalidWordLengthException(input));
         }
 
         if (input.trim().isEmpty()) {
-            EmptyWordException e = new EmptyWordException(input);
-            LogUtils.logGameError(logWriter, e.getMessage());
-            throw e;
+            throwAndLogGameError(new EmptyWordException(input));
         }
 
         if (input.contains(" ")) {
-            WordContainsWhitespaceException e = new WordContainsWhitespaceException(input);
-            LogUtils.logGameError(logWriter, e.getMessage());
-            throw e;
+            throwAndLogGameError(new WordContainsWhitespaceException(input));
         }
 
         if (input.chars().anyMatch(Character::isDigit)) {
-            WordContainsDigitException e = new WordContainsDigitException(input);
-            LogUtils.logGameError(logWriter, e.getMessage());
-            throw e;
+            throwAndLogGameError(new WordContainsDigitException(input));
         }
 
         String normalized = normalize(input);
         if (!isValidWord(normalized)) {
-            NonCyrillicWordException e = new NonCyrillicWordException(input);
-            LogUtils.logGameError(logWriter, e.getMessage());
-            throw e;
+            throwAndLogGameError(new NonCyrillicWordException(input));
         }
 
         if (!words.contains(normalized)) {
-            WordNotFoundInDictionaryException e = new WordNotFoundInDictionaryException(input);
-            LogUtils.logGameError(logWriter, e.getMessage());
-            throw e;
+            throwAndLogGameError(new WordNotFoundInDictionaryException(input));
         }
+    }
+
+    private void throwAndLogGameError(GameException exception) throws GameException {
+        LogUtils.logGameError(logWriter, exception.getMessage());
+        throw exception;
     }
 
     public static String normalize(String word) {
@@ -88,7 +81,7 @@ public class WordleDictionary {
         if (word == null || word.length() != WORD_LENGTH) return false;
 
         for (char c : word.toCharArray()) {
-            if (c < 'А' || c > 'Я') return false; // кириллические 'а' и 'я'!
+            if (c < 'А' || c > 'Я') return false;
         }
 
         return true;
