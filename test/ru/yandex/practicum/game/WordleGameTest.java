@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import ru.yandex.practicum.TestLogUtils;
 import ru.yandex.practicum.dictionary.WordleDictionary;
+import ru.yandex.practicum.exceptions.gameExceptions.GameException;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ class WordleGameTest {
     }
 
     @Test
-    void makeGuess_shouldThrowAfterMaxAttempts() {
+    void makeGuess_shouldThrowAfterMaxAttempts() throws GameException {
 
         for (int i = 0; i < 6; i++) {
             game.makeGuess("СЛОВО");
@@ -45,7 +46,7 @@ class WordleGameTest {
     }
 
     @Test
-    void makeSuggestion_shouldReturnValidResultAndStoreSuggestion() {
+    void makeSuggestion_shouldReturnValidResultAndStoreSuggestion() throws GameException {
         String result = game.makeSuggestion();
         String suggestion = game.getLastSuggestion();
 
